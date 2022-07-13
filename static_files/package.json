@@ -1,0 +1,9 @@
+{
+  "name": "bahatika",
+  "dependencies": {
+    "@webcomponents/custom-elements": "^1.0.0-alpha.3",
+    "clarity-icons": "^0.10.0-alpha.3",
+    "clarity-ui": "^0.10.0-alpha.3",
+    "mutationobserver-shim": "^0.3.2"
+  }
+}

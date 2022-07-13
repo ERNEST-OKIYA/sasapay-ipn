@@ -1,0 +1,17 @@
+@media (max-width: 767px) { 
+
+	.account-dropdown{
+		display: inline-block;
+		margin: 42px 24px;
+		margin-left: 0;
+	}
+
+}
+
+@media (min-width: 768px) { 
+
+	.account-dropdown{
+		display: none;
+	}
+
+}
