@@ -5,8 +5,8 @@ DATABASES = {
     
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'liparahisiipn',
-        'USER':'jsort',
+        'NAME': 'sasapayipn',
+        'USER':'sasapay',
         'PASSWORD':'qwertea21',
         'TIMEZONE':'Africa/Nairobi',
         'HOST': '10.115.128.4'
