@@ -1,89 +1,94 @@
-from db import Db
-import base64
-import hashlib
 import requests
 import time
 import simplejson
+
+import xml.etree.ElementTree as ET
+import decimal
+
+import sys
+
+import json
+
+from db import Db  # import even when not using.
+
+from django.conf import settings
+from django.utils import timezone
+from django.db import transaction
+
 #import our models
-from payments.models import RawPayouts
-from utils.helpers import generate_token
-from utils.resources import VARIABLES
+from payments.models import PayoutsResponseRaw, Transaction, RawPayouts,Balance
 
-
-
-
+from merchants.models import Merchant
 
 
 
 def run():
-    ROWS_SELECTION_LIMIT = 50
-    while True:
-        payouts = RawPayouts.get_unprocessed_results(limit=ROWS_SELECTION_LIMIT)
-        for p in payouts:
-
-            msisdn = p.msisdn
-            amount = p.amount
-            reference_number = p.reference_number
-            result_code = p.result_code
-            merchant = p.merchant
-            mpesa_code = p.mpesa_code
-            url = merchant.payout_results_ipn_url
-            result_description = p.result_description
+	ROWS_SELECTION_LIMIT = 500
+	TIMEOUT = 3
+	PAYOUT_RESULT_URL = 'https://pangabet.com/api/v1/payments/payouts/mpesa/'
 
 
 
-            try:
-                
 
-                payload = {
-                            'msisdn':msisdn,
-                            'amount':amount,
-                            'reference_number':reference_number,
-                            'result_code':result_code,
-                            'mpesa_code':mpesa_code,
-                            'result_description': result_description,
-                          }
+	while True:
+		#get un processed results for processing
 
-                r = requests.post(url,json=payload,timeout=30,verify=False)
-                print(r.text)
-                rv = r.json()
-               
-                if r.status_code == requests.codes.ok:
-                    p.tp_results_notes = 'Results Accepted'
-                    
-                else:
-                    
-                    p.tp_results_notes = 'Results Callback errored'
-                p.third_party_response_sent=1
-                p.save()
+		results = RawPayouts.get_unprocessed_results(
+			limit=ROWS_SELECTION_LIMIT)
+		for result in results:
+			result_status = result.result_status
+			result_code = result.result_code
+			results = result.results
+			transaction_id = result.reference_number
+			mpesa_transaction_id = result.transaction_id
+			result_description = result.result_description
+
+			payload = {
+					'transaction_id':transaction_id,
+					'results': results,
+					'result_code':result_code,
+					'result_description':result_description,
+					'mpesa_transaction_id':mpesa_transaction_id
+				}
+
+			try:
+
+				r = requests.post(PAYOUT_RESULT_URL, json=payload,timeout=TIMEOUT)
+
+				if r.status_code == 200:
+					result.result_status = 1
+					result.notes = "Processed"
+					result.save()
+
+				else:
+					result.result_status = 2
+					result.notes = "Error Processing"
+					result.save()
+
+
+			except requests.exceptions.Timeout:
+				result.notes = "Timeout"
+				result.result_status = 2
+				result.save()
+
+			except requests.exceptions.ConnectionError:
+				result.notes = "ConnectionError"
+				result.results_status = 2
+				result.save()
+
+			except simplejson.scanner.JSONDecodeError:
+				result.notes = "JSONDecodeError"
+				result.result_status = 2
+				result.save()
+
+			except Exception as e:
+				result.result_status = 2
+				result.notes = str(e)
+				result.save()
 
 
 
-            except requests.exceptions.Timeout as exc:
-
-                p.third_party_response_sent = 2
-                p.tp_results_notes = str(exc)
-                p.save()
-
-            except requests.exceptions.ConnectionError as exc:
-
-                p.third_party_response_sent = 2
-                p.tp_results_notes = str(exc)
-                p.save()
-
-            except simplejson.scanner.JSONDecodeError as exc:
-
-                p.third_party_response_sent = 2
-                p.tp_results_notes = str(exc)
-                p.save()
-
-            except Exception as exc:
-
-                p.third_party_response_sent = 2
-                p.tp_results_notes = str(exc)
-                p.save()
-
-        time.sleep(5)
+		time.sleep(2)  # wait  seconds before processing again
 
 
 #runs

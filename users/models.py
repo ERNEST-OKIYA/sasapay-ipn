@@ -67,7 +67,7 @@ class Code(models.Model): #used for verifications
     EMAIL_VERIFICATION=1
     PHONE_NUMBER_VERIFICATION=2
 
-    user=models.ForeignKey(User)
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
     code=models.CharField(max_length=100)
     reason=models.SmallIntegerField()
     date_created=models.DateTimeField(default=timezone.now)

@@ -1,166 +1,22 @@
 {% extends "admin_portal/admin_portal_base.html" %}
 {% load staticfiles %}
 {% block extra_style %}
-    <!-- DataTables -->
-  <link rel="stylesheet" href="{% static "plugins/datatables/dataTables.bootstrap.css" %}">
+<!-- DataTables -->
+<link rel="stylesheet" href="{% static "plugins/datatables/dataTables.bootstrap.css" %}">
 
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.4.0/css/buttons.dataTables.min.css
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.4.0/css/buttons.dataTables.min.css
 
 ">
-
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-<link rel="stylesheet" type="text/css" href="{% static "plugins/datepicker/datepicker3.css" %}">
-<link rel="stylesheet" type="text/css" href="{% static "plugins/select2/select2.min.css" %}">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-
-
-<style type="text/css">
-  .modal-dialog {
-  position: absolute;
-  top: 100px;
-  right: 100px;
-  bottom: 0;
-  left: 0;
-  z-index: 10040;
-  overflow: auto;
-  overflow-y: auto;
-}
-</style>
-
 {% endblock %}
 {% block content %}
-    <div class="box">
-      <div class="box-header" style="margin-bottom: 20px;">
-        <h3 class="box-title">Payments</h3>
-        <div class="box-tools pull-right">
-  <button type="button" class="btn btn-flat margin btn-default" data-toggle="modal" data-target="#modal-default"><i class="fa fa-plus"></i> Approve All</button>
 
-  <button type="button" class="btn btn-flat margin btn-default" ><i class="fa fa-times" style="color: red;"></i> Reject All</button>
-</div>
-      </div>
-
-      <!-- /.box-header -->
-      <div class="box-body">
-    <table id="referee" class="display" cellspacing="0" width="100%">
-    <thead>
-        <tr>
-          <th>Phone Number</th>
-          <th>Amount</th>
-          <th>Reference Number</th>
-          <th>Transaction Time</th>
-          <th>Approve</th>
-
-
-        </tr>
-
-    </thead>
-
-    <tbody>
-
-      {% for item in data %}
-      <tr>
-        <td>{{item.msisdn}}</td>
-        <td>{{item.amount}}</td>
-        <td>{{item.reference_number}}</td>
-        <td>{{item.date_time_created}}</td>
-        <td>
-
-          <a href="#"><i class="fa fa-check-circle-o" id="{{item.id}}" onclick="Approve({{item.id}},{{item.msisdn}},{{item.amount}},1);"></i></a>
-
-
-          <a href="#"><i class="fa fa-times" id="{{item.id}}" onclick="Approve({{item.id}},{{item.msisdn}},{{item.amount}},0);" style="margin-left: 30px;"></i></a>
-
-
-        </td>
-      </tr>
-      {% endfor %}
-
-    </tbody>
-    <tfoot>
-
-    </tfoot>
-
-    </table>
-    </div>
-            <!-- /.box-body -->
-    </div>
-          <!-- /.box -->
-
-
-
-<div class="modal fade" id="modal-edit">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="javascript:window.location='/dashboard/'">
-          <span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Approve Disbursement</h4>
-      </div>
-      <div class="modal-body">
-        <form role="form" action="/dashboard/" method="POST" name="ApproveForm" id="ApproveForm">{% csrf_token %}
-              <div class="box-body">
-
-            <div class="row">
-              {% if messages %}
-
-            <div class="messages">
-                {% for msg in messages %}
-
-              <div>
-                   <em style="margin-left: 1%;"> <strong> * {{msg.message}}</strong> </em>
-
-
-                </div>
-
-                {% endfor %}
-            </div>
-            {% endif %}
-          </div>
-
-                <div id="success_div" style="color: #3c763d;"></div>
-
-                <input type="hidden" name="msisdn" value="" id="msisdn">
-                <div class="form-group">
-                 <div id="account_name_error_div" style="color:red;"></div>
-                  <label for="Name">Phone Number:</label>
-                  <input type="text" class="form-control" id="msisdn"  name="msisdn" value="" disabled>
-                </div>
-                <div class="form-group">
-                  <label for="Name">Amount:</label>
-                  <input type="text" class="form-control" id="amount"  name="amount" value="">
-                </div>
-
-
-              <!-- /.form group -->
-
-              </div>
-              <!-- /.box-body -->
-
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default pull-left" data-dismiss="modal" onclick="javascript:window.location='/dashboard/'">Close</button>
-        <button type="submit" class="btn btn-default"><i class="fa fa-plus" id="add_referee"></i> Update</button>
-      </div>
-
-      </form>
-    </div>
-
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
-
-
-<!-- -->
 
 {% endblock %}
 
 
 {% block jslinks %}
-    <!-- DataTables -->
+<!-- DataTables -->
 <script src="{% static "plugins/datatables/jquery.dataTables.min.js" %}"></script>
 <script src="{% static "plugins/datatables/dataTables.bootstrap.min.js" %}"></script>
 
@@ -174,127 +30,9 @@
 <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.4.0/js/buttons.print.min.js
 "></script>
-<!-- bootstrap datepicker -->
-<script src="{% static "plugins/datepicker/bootstrap-datepicker.js" %}"></script>
-<script src="{% static "plugins/select2/select2.min.js" %}"></script>
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 
 {% endblock %}
 {% block pagescripts%}
 
-<script type="text/javascript">
-  $('#datepicker').datepicker({
-      autoclose: true,
-      format: 'yyyy-mm-dd'
-    })
-</script>
-
-
-<script>
-  $(function () {
-    $("#referee").DataTable(
-        {
-        dom: 'Bfrtip',
-        buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5',
-            'print',
-        ]
-    } );
-
-  });
-</script>
-
-<script type="text/javascript">
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
-  });
-</script>
-
-
-<script type="text/javascript">
-    function Approve(inputId,msisdn,amount,action)
-
-    {
-
-      if (action==1)
-      {
-                swal({
-                title: "Approve"+' '+msisdn+' For KES'+' '+amount,
-                text: "KES" +' '+amount+' '+ "Will be Disbursed,this action is irrevaersible." ,
-                type: "info",
-                showCancelButton: true,
-                confirmButtonText: "Approve",
-                closeOnConfirm: false,
-                showLoaderOnConfirm: true,
-            }, function (isConfirm) {
-                if (!isConfirm) return;
-                $.ajax({
-                    url: "/dashboard/",
-                    type: "POST",
-                    data:{csrfmiddlewaretoken: '{{ csrf_token }}',amount:amount,id:inputId,msisdn:msisdn,action:action},
-
-                    success: function (response) {
-
-                        swal("mpesa",response.message);
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        swal("Error approving!", "Please try again", "error");
-                    }
-                });
-            });
-        }
-
-      else
-
-      {
-          swal({
-                title: "Reject"+' '+msisdn+' For KES'+' '+amount,
-                text: "KES" +' '+amount+' '+ "Will not be Disbursed to "+msisdn ,
-                type: "info",
-                showCancelButton: true,
-                confirmButtonText: "Reject  ",
-                closeOnConfirm: false,
-                showLoaderOnConfirm: true,
-            }, function (isConfirm) {
-                if (!isConfirm) return;
-                $.ajax({
-                    url: "/dashboard/",
-                    type: "POST",
-                    data:{csrfmiddlewaretoken: '{{ csrf_token }}',amount:amount,id:inputId,msisdn:msisdn,action:action},
-
-                    success: function (response) {
-
-                        swal("mpesa",response.message);
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        swal("Error Rejecting!", "Please try again", "error");
-                    }
-                });
-            });
-
-
-      }
-
-    };
-
-</script>
-
-
-
-
-
-
 {% endblock %}
-
-
-
-
-
-<!-- Date -->

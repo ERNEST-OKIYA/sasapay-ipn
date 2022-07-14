@@ -6,14 +6,14 @@ def generate_token():
 
 	# consumer_key = 'YFRffqU8Yu914y4v740Os3uZAmGcfFsZ'
 	# consumer_secret ='BwkUS6pbjK6XUrmA'
-	consumer_key = 'tkplzofGH8Eikc4BLbn66GqGRgIRmA1x'
-	consumer_secret ='jll6W8YGiGGTprqy'
+	consumer_key='GHnUzaVP46j7YkXQzPW4ASoAmskmUtxz'
+	consumer_secret='kLMbAfHKa9WOPh4B'
 	TOKEN_URL='https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
 
 
 	r = requests.get(TOKEN_URL, auth=HTTPBasicAuth(consumer_key, consumer_secret))
 	token=r.json()
-
+	print(token)
 
 	return token.get('access_token')
 
@@ -29,7 +29,7 @@ def payout(msisdn,amount):
     "Amount": amount,
     "PartyA":  VARIABLES.get('PartyA'),
     "PartyB": msisdn,
-    "Remarks": " Test Pay",
+    "Remarks": " Test Pay to check key",
     "QueueTimeOutURL":  VARIABLES.get('QueueTimeOutURL'),
     "ResultURL":  VARIABLES.get('ResultURL'),
     "Occasion": " "
@@ -41,9 +41,7 @@ def payout(msisdn,amount):
 
     print (response.text)
 
-# phone_numbers=['254722772222','254722737973','254722435168','254722615420','254722988175','254722912908','254723920149']
-phone_numbers=['254722912908',]
+phone_numbers=['254723814693']
 for phone_number in phone_numbers:
-    print("Sending 10/= to {}".format(phone_number))
-    payout(phone_number,10)
-#
+    print("Sending 50/= to {}".format(phone_number))
+    payout(phone_number, 8000)

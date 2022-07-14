@@ -1,7 +1,7 @@
 import base64
-Timestamp='20180615121533'
-BusinessShortCode='642086'
-PASS_KEY='d433b8be80b9e35a722dbb1757d77623ee2448de4bb5fdd36878327d51ff81ac'
+Timestamp='20190603121533'
+BusinessShortCode='286630'
+PASS_KEY='dbdcfbdb9a4ff9ad1ae49f2e9a3ccbca32fd83edfa923ba4d9923b1ef29051a0'
 string=(BusinessShortCode+PASS_KEY+Timestamp).encode('utf-8')
 encoded=base64.b64encode(string)
 print(encoded)

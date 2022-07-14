@@ -20,9 +20,9 @@ class Merchant(models.Model):
     working_account_balance=models.DecimalField(max_digits=12,decimal_places=2,default=0.0)
 
     deposits_ipn_url=models.URLField()
-    payout_results_ipn_url=models.URLField(null=True,blank=True)
-    public_ip = models.CharField(max_length=20,null=True)
-    user=models.OneToOneField(User,on_delete=models.DO_NOTHING)
+    payouts_ipn_url=models.URLField()
+
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
     app_key=models.CharField(max_length=100,default=gen_uuid)
     app_secret=models.CharField(max_length=100,default=gen_uuid)
 

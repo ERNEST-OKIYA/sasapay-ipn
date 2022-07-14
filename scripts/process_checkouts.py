@@ -9,11 +9,11 @@ import simplejson
 from payments.models import RawCheckout
 
 
-CallBackURL = 'http://46.101.58.107:8060/ipn/checkout-response/'
-PASSWORD = 'NTIzMzg4YWRlNjIzNzMxMGI0ZmJmMjBiOTdmNDJkMjA0MWZmYmNkMDUxZWQyOGE2Y2UzYzQ5YmU3YjIwMTQxNTcwYjMxNTIwMTkwMjI4MTMyODQ3'
+CallBackURL = 'https://104.248.35.188:2020/ipn/checkout-response/'
+PASSWORD = 'Mjk5NTMzNTNiNTNmZGNiMjE1MjZkYTQ1ODdjZjFmNjg1OTRmOGMxZmRlMWU3YmIzNzVhMGY0MzM3ZmRlMDdmODFjM2I5ZjIwMTgxMTI4MTMyODQ3'
 
-CONSUMER_KEY = '2YyhGASsOG6za7QN7UAZeAIJn9AOocNT'
-CONSUMER_SECRET = 'GAdNPGYCrzDg6nRU'
+CONSUMER_KEY = 'gvoZQPP6RADYnQ1Z1HK1WRkTLcVXckaK'
+CONSUMER_SECRET = 'iTvEapPSfjpdpPf9'
 TOKEN_URL = 'https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
 
 
@@ -48,17 +48,17 @@ def run():
 
                 headers = {"Authorization": "Bearer %s" % access_token}
                 request = {
-                    "BusinessShortCode": "523388",
+                    "BusinessShortCode": "299533",
                     "Password": PASSWORD,
-                    "Timestamp": "20190228132847",
+                    "Timestamp": "20181128132847",
                     "TransactionType": "CustomerPayBillOnline",
                     "Amount": amount,
-                    "PartyA": "523388",
+                    "PartyA": "299533",
                     "PartyB": msisdn,
                     "PhoneNumber": msisdn,
                     "CallBackURL": CallBackURL,
                     "AccountReference": reference_number,
-                    "TransactionDesc": "Chomoa Hela"
+                    "TransactionDesc": "Safari Lotto"
                 }
 
 
@@ -88,7 +88,7 @@ def run():
                 p.status = 2
                 p.save()
 
-        time.sleep(1)
+        time.sleep(5)
 
 
 #runs

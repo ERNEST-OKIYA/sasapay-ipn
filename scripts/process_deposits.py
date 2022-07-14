@@ -62,8 +62,10 @@ def run():
             try:
                 BusinessShortCode = detail.get('BusinessShortCode')
                 deposits_ipn_url=Merchant.objects.get(c2b_shortcode=BusinessShortCode).deposits_ipn_url
-
+                print(deposits_ipn_url)
                 response=requests.post(deposits_ipn_url,json=detail,verify=False,timeout=deposit.MAX_CLIENT_API_CALL_TIMEOUT)
+                print(response.text,"response")
+
                 response_data=response.json()
                 response_status=response_data.get('status',RESPONSE_FAILED)
                 deposit.reason=response_status
@@ -74,7 +76,7 @@ def run():
                 response_status=RESPONSE_FAILED
                 status_reason='Timeout'
                 deposit.reason = status_reason
-                deposit.status = 0
+                deposit.status = 2
                 deposit.save()
 
             except requests.exceptions.ConnectionError:
@@ -82,14 +84,14 @@ def run():
                 response_status=RESPONSE_FAILED
                 status_reason='ConnectionError'
                 deposit.reason = status_reason
-                deposit.status = 0
+                deposit.status = 2
                 deposit.save()
 
             except simplejson.scanner.JSONDecodeError:
                 response_status=RESPONSE_FAILED
                 status_reason='JSONDecodeError'
                 deposit.reason = status_reason
-                deposit.status = 0
+                deposit.status = 2
                 deposit.save()
 
 

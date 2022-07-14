@@ -1,10 +1,9 @@
-VARIABLES={'InitiatorName':'JIJENGE DEV',
+VARIABLES={'InitiatorName':'JOSHUA DEV',
 		   'CommandID':'PromotionPayment',
-		   'PartyA':'5802001',
+		   'PartyA':'786816',
            'B2C_API': 'https://api.safaricom.co.ke/mpesa/b2c/v1/paymentrequest',
-		   'DEFAULTCALLBACKURL':'https://ipn.quickbid.co.ke:7024/checkout/response',
-           'SecurityCredential': 'CUKDcH9+D1q3CNX8OYrIixBfD/3fUEMD6dMG00hivYJKr5yOPpAtW2q+RMPZfTXlCPdQcbGSqycxQctgi5sJRjx87Y4eYxPNpCm2ZsVHv/ZmPKaSv3f+/WuKyBeO4ihFwUr9ygt9n0aYNmBJxT/j4ALdJbeoGIVfKuqkvk/EhKac8tT8ZKSsMn4yERS+0YXm0f5qUdSJCv01Ens1GNpuBilnr6gBltpLkY7hlDbAo5hfTWDkZkbYDtbSIngxgFB4mLx0lbBVHcKPqByfBJznDMie6t81BYUO6uCneSJ8IkrT53X9d/0rQ3MWThkJaLfQlLveU09z1KjkicV3Z1DbTw==',
-		   'QueueTimeOutURL':'https://ipn.quickbid.co.ke:7024/ipn/b2ctimeout/',
-		   'ResultURL':'https://ipn.quickbid.co.ke:7024/ipn/b2cresult/'}
+           'SecurityCredential': 'WQt/dkeiR694OJ2+9kzAZ1WDGSTqoV6/2S3E00gmF6zwhspc/Js4xKudfVs80wkP2meK8HTC3WyPdFdoqmMAkWt+JkjksuiRTGLjpIF5S9FExtmNOU3tZhuvuVJ891l6JIkAbx2qLfG6JayhCWCxN5SqBbryGbGRLVswq9lVKR8MruOQW4mZWGwKfpPX0AROUQ/97LTnWnUveJAINyf24KML3HHnbHmhFqBQDs9UXJz2Q7zydOCbMdlWFjC5IttdcBZeY5WAbtDSihJxUEE91oP3TGsaBdxYBKIzZzQKoyO85XTZNYfwTkrhDsuEvaQh00WzCGe2/lyXTw++sMAKQQ==',
+		   'QueueTimeOutURL':'https://anselia.angapay.com/ipn/b2ctimeout/',
+		   'ResultURL':'https://anselia.angapay.com/ipn/b2cresult/'}
 
 
