@@ -1,4 +1,4 @@
-# MPESA PRoject
+# PAYMENT PROJECT
 
 
 #Usage
