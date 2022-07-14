@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{% block title %}Admin | Mpesa {% endblock %}</title>
+
+  {% block style %}
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static "dist/css/AdminLTE.css" %}">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+   <link rel="stylesheet" href="{% static "dist/css/skins/_all-skins.min.css" %}">
+  <link rel="stylesheet" href="{% static "dist/css/skins/skin-black-light.min.css" %}">
+
+
+<link rel="stylesheet" type="text/css" href="{% static "sweetalert/sweetalert.css"%}">
+<link rel="stylesheet" type="text/css" href="{% static "sweetalert/animate.css"%}">
+<link rel="stylesheet" type="text/css" href="{% static "sweetalert/twitter.css"%}">
+<!-- <link rel="shortcut icon" href="{% static "assets/images/favicons/favicon.ico" %}"> -->
+<link href="https://fonts.googleapis.com/css?family=Rancho" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+
+
+
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  {% endblock %}
+
+  {% block extra_style %}
+  {% endblock %}
+
+
+</head>
+<!-- ADD THE CLASS fixed TO GET A FIXED HEADER AND SIDEBAR LAYOUT -->
+<!-- the fixed layout is not compatible with sidebar-mini -->
+
+
+<body class="hold-transition skin-blue fixed sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+
+  <header class="main-header">
+    <!-- Logo -->
+    <a href="#" class="logo" style="background-color: #ffcc33;height: 100%;">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>M</b>P</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg" style="background-color: #ffcc33;"><strong style="color: #000">Mpesa Admin</strong></span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top" style="background-color: #ffcc33;min-height: 50px;">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button" style="background-color: #ffcc33;color: black;">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+
+      </a>
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+
+           {% if user.is_authenticated %}
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+              <span class="hidden-xs" style="color: #000000;">Welcome,{{user.email}}</span>
+            </a>
+
+          </li>
+
+          <li class="dropdown user user-menu">
+            <a href="/logout/"><em style="color: #000000">Logout <i class="fa fa-sign-out"></i></em></a>
+
+          </li>
+
+           <!-- <li class="dropdown user user-menu">
+            <a href="/password/"><p style="color: #000000">Change Password</p></a>
+
+          </li> -->
+          {% endif %}
+
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- =============================================== -->
+
+  <!-- Left side column. contains the sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+
+      <!-- /.search form -->
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">MAIN NAVIGATION</li>
+
+
+
+        <li><a href="/dashboard/"><i class="fa fa-circle-o text-yellow"></i>Deposits</a></li>
+        <li><a href="/payouts/"><i class="fa fa-circle-o text-green"></i>Payouts</a></li>
+        <!-- <li><a href="/admin/accounts"><i class="fa fa-circle-o text-aqua"></i>Accounts</a></li> -->
+
+
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- =============================================== -->
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+
+  {% block content-header %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+    <!-- alerts -->
+
+
+    </section>
+
+  {% endblock %}
+
+    <!-- Main content -->
+    <section class="content">
+    <!-- <div class="row" style="margin-top: 1%;margin-left: 1%;">
+
+      {% if messages %}
+
+        <div class="messages">
+            {% for msg in messages %}
+            <div class="row col-md-6">
+                <div class="alert-{{msg.level_tag}}">
+                {{msg.message}}
+                </div>
+
+            </div>
+
+            {% endfor %}
+        </div>
+        {% endif %}
+      </div> -->
+
+     {% block content %}
+
+     {% endblock %}
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 2.4.0
+    </div>
+    <strong>Copyright &copy; 2018 <a href="/dashboard/">mpesa</a>.</strong> All rights
+    reserved.
+  </footer>
+
+</div>
+<!-- ./wrapper -->
+
+{% block commonscripts %}
+<!-- jQuery 2.2.3 -->
+<script src="{% static "plugins/jQuery/jquery-2.2.3.min.js" %}"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="{% static "vendor/bootstrap/js/bootstrap.min.js" %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static "dist/js/adminlte.min.js" %}"></script>
+<script src="{% static "sweetalert/sweetalert.min.js"%}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+
+{% endblock %}
+
+{% block jslinks %}
+
+{% endblock %}
+
+{% block pagescripts %}
+
+{% endblock %}
+
+
+</body>
+</html>
